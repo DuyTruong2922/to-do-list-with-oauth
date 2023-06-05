@@ -1,6 +1,6 @@
 
   var YOUR_CLIENT_ID = '12831201738-vobo8jvdgs1qq3hd41rgvu3see4qjl42.apps.googleusercontent.com';
-  var YOUR_REDIRECT_URI = 'https://tolocalhost.com/';
+  var YOUR_REDIRECT_URI = 'http://localhost:3000/dashbroad.html';
   var fragmentString = location.hash.substring(1);
 
   // Parse query string to see if page request is coming from OAuth 2.0 server.
@@ -87,3 +87,4 @@
         signInButton.addEventListener('click', () => {
             container.classList.remove('right-panel-active');
         });
+
