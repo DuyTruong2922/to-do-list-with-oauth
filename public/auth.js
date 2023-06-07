@@ -1,4 +1,3 @@
-
   var YOUR_CLIENT_ID = '12831201738-vobo8jvdgs1qq3hd41rgvu3see4qjl42.apps.googleusercontent.com';
   var YOUR_REDIRECT_URI = 'http://localhost:3000/dashbroad.html';
   var fragmentString = location.hash.substring(1);
@@ -16,11 +15,10 @@
     }
   }
 
-
-
   // If there's an access token, try an API request.
   // Otherwise, start OAuth 2.0 flow.
   function trySampleRequest() {
+    console.log('1')
     var params = JSON.parse(localStorage.getItem('oauth2-test-params'));
     if (params && params['access_token']) {
       var xhr = new XMLHttpRequest();
@@ -30,6 +28,7 @@
       xhr.onreadystatechange = function (e) {
         if (xhr.readyState === 4 && xhr.status === 200) {
           console.log(xhr.response);
+          window.location.href = YOUR_REDIRECT_URI;
         } else if (xhr.readyState === 4 && xhr.status === 401) {
           // Token invalid, so prompt for user permission.
           oauth2SignIn();
@@ -56,7 +55,7 @@
     // Parameters to pass to OAuth 2.0 endpoint.
     var params = {'client_id': YOUR_CLIENT_ID,
                   'redirect_uri': YOUR_REDIRECT_URI,
-                  'scope': 'https://www.googleapis.com/auth/drive.metadata.readonly',
+                  'scope': 'https://www.googleapis.com/auth/cloud-platform',
                   'state': 'try_sample_request',
                   'include_granted_scopes': 'true',
                   'response_type': 'token'};
@@ -76,15 +75,7 @@
   }
 
 
-  const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const container = document.getElementById('container');
-
-        signUpButton.addEventListener('click', () => {
-            container.classList.add('right-panel-active');
-        });
-
-        signInButton.addEventListener('click', () => {
-            container.classList.remove('right-panel-active');
-        });
-
+  function logOut() {
+    localStorage.removeItem('oauth2-test-params')
+    window.location.href = 'http://localhost:3000';
+  }
