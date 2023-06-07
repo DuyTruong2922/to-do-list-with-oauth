@@ -76,6 +76,8 @@
 
 
   function logOut() {
-    localStorage.removeItem('oauth2-test-params')
+    if (confirm('ban chac chan muon thoat')=== true) {
+      localStorage.removeItem('oauth2-test-params')
     window.location.href = 'http://localhost:3000';
+    } 
   }
