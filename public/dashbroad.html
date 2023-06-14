@@ -1,49 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-          background-color: #333;
-        }
-        
-        li {
-          float: left;
-        }
-        
-        li a {
-          display: block;
-          color: white;
-          text-align: center;
-          padding: 14px 16px;
-          text-decoration: none;
-        }
-        
-        li a:hover:not(.active) {
-          background-color: #111;
-        }
-        
-        .active {
-          background-color: #04AA6D;
-        }
-        </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-    <ul>
-        <!-- <li><a href="#home">Home</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#contact">Contact</a></li> -->
-        <li style="float:right"><button onclick="logOut();">Sign Out</button></li>
-      </ul>
-    
+      <!--Add buttons to initiate auth sequence and sign out-->
+      <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+      <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
-<script src="auth.js"></script>
+      <form action="">
+        <div>
+          <label for="">task muon lam</label>
+          <input type="text" placeholder="ten" id="eventName">
+        </div>
+        <div>
+          <label for="">mo ta</label>
+          <input type="text" placeholder="mo ta" id="description">
+        </div>
+        <div>
+          <label for="">dia diem</label>
+          <input type="text" placeholder="dia diem" id="location">
+        </div>
+        <div>
+          <label for="">thoi gian bat dau</label>
+          <input type="datetime-local" placeholder="thoi gian bat dau" id="startTime">
+        </div>
+        <div>
+          <label for="">thoi gian ket thuc</label>
+          <input type="datetime-local" placeholder="thoi gian ket thuc" id="endTime">
+        </div>
+        <button onclick="addEvent()" type="button">add</button>
+      </form>
+      
+      <pre id="content" style="white-space: pre-wrap;"></pre>
+  
+      <script type="text/javascript" src="auth.js"></script>
+      <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+      <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 </body>
 </html>
