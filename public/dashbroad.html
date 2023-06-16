@@ -7,35 +7,41 @@
   <title>Document</title>
 </head>
 <body>
+  <div id="container"></div>
       <!--Add buttons to initiate auth sequence and sign out-->
       <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
       <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
-      <form action="">
-        <div>
-          <label for="">task muon lam</label>
-          <input type="text" placeholder="ten" id="eventName">
-        </div>
-        <!-- <div>
-          <label for="">mo ta</label>
-          <input type="text" placeholder="mo ta" id="description">
-        </div>
-        <div>
-          <label for="">dia diem</label>
-          <input type="text" placeholder="dia diem" id="location">
-        </div> -->
-        <div>
-          <label for="">thoi gian bat dau</label>
-          <input type="datetime-local" placeholder="thoi gian bat dau" id="startTime">
-        </div>
-        <div>
-          <label for="">thoi gian ket thuc</label>
-          <input type="datetime-local" placeholder="thoi gian ket thuc" id="endTime">
-        </div>
-        <button onclick="addEvent()" type="button">add</button>
-      </form>
-      
-      <pre id="content" style="white-space: pre-wrap;"></pre>
+      <div class="loged-content" id="loged-content">
+        <form action="" id="add-form">
+          <div>
+            <label for="">task muon lam</label>
+            <input type="text" placeholder="ten" id="eventName">
+          </div>
+          <!-- <div>
+            <label for="">mo ta</label>
+            <input type="text" placeholder="mo ta" id="description">
+          </div>
+          <div>
+            <label for="">dia diem</label>
+            <input type="text" placeholder="dia diem" id="location">
+          </div> -->
+          <div>
+            <label for="">thoi gian bat dau</label>
+            <input type="datetime-local" placeholder="thoi gian bat dau" id="startTime">
+          </div>
+          <div>
+            <label for="">thoi gian ket thuc</label>
+            <input type="datetime-local" placeholder="thoi gian ket thuc" id="endTime">
+          </div>
+          <button onclick="addEvent()" type="button">add</button>
+        </form>
+        <button onclick="clearCalendar()">thanos</button>
+      </div>
+
+
+      <!-- <pre id="content" style="white-space: pre-wrap;"></pre> -->
+      <div id="content" style=" text-align: center;"></div>
   
       <script type="text/javascript" src="auth.js"></script>
       <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
