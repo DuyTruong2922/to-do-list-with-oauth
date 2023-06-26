@@ -36,7 +36,16 @@
           </div>
           <button onclick="addEvent()" type="button">add</button>
         </form>
-        <button onclick="clearCalendar()">thanos</button>
+        
+
+        <!-- <script>
+          function clearCalendar(auth){
+              const calendar = google.calendar({version: 'v3', auth});
+              calendar.calendars.clear({ "calendarId": "primary" }, (err, res) => {
+                  if (err) return err;
+              });
+          }
+        </script> -->
       </div>
 
 

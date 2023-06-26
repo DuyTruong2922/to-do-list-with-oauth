@@ -15,8 +15,9 @@
       
             // Authorization scopes required by the API; multiple scopes can be
             // included, separated by spaces.
-            const SCOPES = 'https://www.googleapis.com/auth/calendar';
+            const SCOPES = 'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events';
 
+           
 
       let tokenClient;
       let gapiInited = false;
@@ -106,8 +107,7 @@
         }
       }
 
-      
-
+  
 
       function addEvent() {
         // Refer to the JavaScript quickstart on how to setup the environment:
@@ -161,6 +161,16 @@
         handleAuthClick();
       }
 
+
+      function deleteEvent(eventId) {
+        const evenKill = gapi.client.calendar.events.delete({
+          'calendarId': 'primary',
+          'eventId': eventId,
+        });
+        evenKill.execute();
+        handleAuthClick();
+      }
+
       /**
        * Print the summary and start datetime/date of the next ten events in
        * the authorized user's calendar. If no events are found an
@@ -192,17 +202,15 @@
         const output = events.reduce(
             // (str, event) => `${str}` +"<div style='margin-top: 1%;'> name: " +  `${event.summary}`+ "</div> <div style='border-bottom: 1px solid black;'>start:"+` ${event.start.dateTime || event.start.date}`+  " deadline: " + `${event.end.dateTime || event.end.date} </div>`,
             // 'task:\n');
-            (str, event) => `${str} <div style='margin-top: 1%;'>${event.summary}</div> <div style='border-bottom: 1px solid black;'>start: ${event.start.dateTime || event.start.date} deadline: ${event.end.dateTime || event.end.date} </div>\n`,
+            (str, event) => `${str} <div style='margin-top: 1%;'>${event.summary}  </div> <div style='border-bottom: 1px solid black;'>start: ${event.start.dateTime || event.start.date} deadline: ${event.end.dateTime || event.end.date} <button onclick="deleteEvent('${event.id}')">delete</button> </div>\n`,
             'Events:\n');
         document.getElementById('content').innerHTML = output;
 
+
+
+
         
       }
-      function clearCalendar() {
-        var listEvent = gapi.client.calendar.getEvents();
-        listEvent.forEach(event => { 
-          event.remove()
-        });
-      }
+
 
       
