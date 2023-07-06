@@ -159,6 +159,7 @@
         });
 
         handleAuthClick();
+        modal.style.display = "none";
       }
 
 
@@ -167,10 +168,92 @@
           'calendarId': 'primary',
           'eventId': eventId,
         });
-        evenKill.execute();
-        handleAuthClick();
+        if (confirm('Xác nhận muốn xoá')==true) {
+          evenKill.execute();
+          handleAuthClick();
+          alert("Đã xoá task");
+        }
       }
 
+      function updateModal(id,name,st,et) {
+        modal.style.display = "block";
+
+        for (let i = 0; i < updateContent.length; i ++) {
+          updateContent[i].style.display = 'block';
+        }
+        for (let i = 0; i < addContent.length; i ++) {
+          addContent[i].style.display = 'none';
+        }
+        document.getElementById("eventName").value = name;
+        document.getElementById("startTime").value = st;
+        document.getElementById("endTime").value = et;
+        console.log(st);
+        console.log(et);
+
+        // const eName = document.getElementById("eventName").value;
+        // const eSt = document.getElementById("startTime").value;
+        // const eEt = document.getElementById("endTime").value;
+
+        var update = document.getElementById("update");
+
+        // When the user clicks on the button, open the modal
+        update.onclick = function() {
+          updateEvent(id);
+          let addContent = document.getElementsByClassName('addContent');
+
+          for (let i = 0; i < addContent.length; i ++) {
+            addContent[i].style.display = 'block';
+          }
+        }
+
+        
+      }
+
+      function updateEvent(eventId) {
+        // document.querySelector(".addContent").style.visibility = 'hidden';
+
+        let event = gapi.client.calendar.events.get({"calendarId": 'primary', "eventId": eventId});
+        // Example showing a change in the location
+        const eventName = document.getElementById('eventName').value;
+        const st = new Date(document.getElementById('startTime').value);
+        const startTime = st.toISOString();
+        const et = new Date(document.getElementById('endTime').value);
+        const endTime = et.toISOString();
+
+        console.log(startTime);
+        console.log(endTime);
+        // event.summary = eventName;
+        // event.start= startTime;
+        // event.end.dateTime = endTime; 
+        event = {
+          'summary': eventName,
+          // 'location': location,
+          // 'description': description,
+          'start': {
+            'dateTime': startTime,
+            'timeZone': 'Asia/Ho_Chi_Minh'
+          },
+          'end': {
+            'dateTime': endTime,
+            'timeZone': 'Asia/Ho_Chi_Minh'
+          },
+
+
+        };
+
+
+
+
+        let request = gapi.client.calendar.events.patch({
+            'calendarId': 'primary',
+            'eventId': eventId,
+            'resource': event
+        });
+
+        request.execute();
+        handleAuthClick();
+        modal.style.display = "none";
+      }
       /**
        * Print the summary and start datetime/date of the next ten events in
        * the authorized user's calendar. If no events are found an
@@ -202,15 +285,61 @@
         const output = events.reduce(
             // (str, event) => `${str}` +"<div style='margin-top: 1%;'> name: " +  `${event.summary}`+ "</div> <div style='border-bottom: 1px solid black;'>start:"+` ${event.start.dateTime || event.start.date}`+  " deadline: " + `${event.end.dateTime || event.end.date} </div>`,
             // 'task:\n');
-            (str, event) => `${str} <div style='margin-top: 1%;'>${event.summary}  </div> <div style='border-bottom: 1px solid black;'>start: ${event.start.dateTime || event.start.date} deadline: ${event.end.dateTime || event.end.date} <button onclick="deleteEvent('${event.id}')">delete</button> </div>\n`,
+            (str, event) => `${str} <div style='margin-top: 1%;'>${event.summary}  </div> <div style='border-bottom: 1px solid black;'>start: ${event.start.dateTime || event.start.date} <div>deadline: ${event.end.dateTime || event.end.date}</div> <button onclick="deleteEvent('${event.id}')">delete</button>     
+            <button onclick="updateModal('${event.id}','${event.summary}','${event.start.dateTime || event.start.date}','${event.end.dateTime || event.end.date}')" type="button">Sửa</button> 
+            
+            </div>\n`,
             'Events:\n');
         document.getElementById('content').innerHTML = output;
 
-
-
-
-        
       }
+
+const addContent = document.getElementsByClassName('addContent');
+const updateContent = document.getElementsByClassName('updateContent');
+// Get the modal
+const modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+const btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+const span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+  for (let i = 0; i < updateContent.length; i ++) {
+    updateContent[i].style.display = 'none';
+  }
+  for (let i = 0; i < addContent.length; i ++) {
+    addContent[i].style.display = 'block';
+  }
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+  for (let i = 0; i < updateContent.length; i ++) {
+    updateContent[i].style.display = 'none';
+  }
+  for (let i = 0; i < addContent.length; i ++) {
+    addContent[i].style.display = 'block';
+  }
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    modal.style.display = "none";
+    for (let i = 0; i < updateContent.length; i ++) {
+      updateContent[i].style.display = 'none';
+    }
+    for (let i = 0; i < addContent.length; i ++) {
+      addContent[i].style.display = 'block';
+    }
+  }
+}
 
 
       
