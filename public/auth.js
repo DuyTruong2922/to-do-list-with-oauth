@@ -66,6 +66,7 @@
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
           document.getElementById('authorize_button').style.visibility = 'visible';
+          document.getElementById('authorize_button').style.marginTop = "20%";
         }
       }
 
@@ -77,6 +78,7 @@
           if (resp.error !== undefined) {
             throw (resp);
           }
+          document.getElementById('authorize_button').style.marginTop = "2%";
           document.getElementById('signout_button').style.visibility = 'visible';
           document.getElementById('loged-content').style.visibility = 'visible';
           document.getElementById('authorize_button').innerText = 'Refresh';
@@ -285,10 +287,29 @@
         const output = events.reduce(
             // (str, event) => `${str}` +"<div style='margin-top: 1%;'> name: " +  `${event.summary}`+ "</div> <div style='border-bottom: 1px solid black;'>start:"+` ${event.start.dateTime || event.start.date}`+  " deadline: " + `${event.end.dateTime || event.end.date} </div>`,
             // 'task:\n');
-            (str, event) => `${str} <div style='margin-top: 1%;'>${event.summary}  </div> <div style='border-bottom: 1px solid black;'>start: ${event.start.dateTime || event.start.date} <div>deadline: ${event.end.dateTime || event.end.date}</div> <button onclick="deleteEvent('${event.id}')">delete</button>     
-            <button onclick="updateModal('${event.id}','${event.summary}','${event.start.dateTime || event.start.date}','${event.end.dateTime || event.end.date}')" type="button">Sửa</button> 
-            
-            </div>\n`,
+            (str, event) => `${str} 
+            <div style='margin-top: 1%;' class="task">
+              ${event.summary}  
+              <br>
+                  start: ${event.start.dateTime || event.start.date} 
+                  <br>
+                  deadline: ${event.end.dateTime || event.end.date}   
+                  <div class="task-bnt">
+                    <button class="button-80" role="button" 
+                    style="background: yellow;" 
+                    onclick="updateModal('${event.id}','${event.summary}','${event.start.dateTime || event.start.date}','${event.end.dateTime || event.end.date}')"
+                      type="button">
+                      Sửa
+                    </button> 
+
+                    <button class="button-80" role="button" 
+                      style="background: red;color: white;"
+                      onclick="deleteEvent('${event.id}')">
+                      Xoá
+                    </button>  
+                  </div>
+            </div> 
+            \n`,
             'Events:\n');
         document.getElementById('content').innerHTML = output;
 
