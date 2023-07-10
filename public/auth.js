@@ -104,8 +104,10 @@
           google.accounts.oauth2.revoke(token.access_token);
           gapi.client.setToken('');
           document.getElementById('content').innerText = '';
-          document.getElementById('authorize_button').innerText = 'Authorize';
           document.getElementById('signout_button').style.visibility = 'hidden';
+          document.getElementById('loged-content').style.visibility = 'hidden';
+          document.getElementById('authorize_button').innerText = 'Đăng nhập bằng tài khoản Google';
+          document.getElementById('authorize_button').style.marginTop = "20%";
         }
       }
 
