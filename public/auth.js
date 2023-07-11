@@ -121,14 +121,10 @@
         const eventName = document.getElementById('eventName').value;
         const st = new Date(document.getElementById('startTime').value);
         const startTime = st.toISOString();
-        // const location = document.getElementById('location').value;
         const et = new Date(document.getElementById('endTime').value);
         const endTime = et.toISOString();
-        // const description = document.getElementById('description').value;
         const event = {
           'summary': eventName,
-          // 'location': location,
-          // 'description': description,
           'start': {
             'dateTime': startTime,
             'timeZone': 'Asia/Ho_Chi_Minh'
@@ -140,10 +136,7 @@
           'recurrence': [
             'RRULE:FREQ=DAILY;COUNT=1'
           ],
-          // 'attendees': [
-          //   {'email': 'lpage@example.com'},
-          //   {'email': 'sbrin@example.com'}
-          // ],
+
           'reminders': {
             'useDefault': false,
             'overrides': [
@@ -189,15 +182,8 @@
           addContent[i].style.display = 'none';
         }
         document.getElementById("eventName").value = name;
-        document.getElementById("startTime").value = st;
-        document.getElementById("endTime").value = et;
-        console.log(st);
-        console.log(et);
-
-        // const eName = document.getElementById("eventName").value;
-        // const eSt = document.getElementById("startTime").value;
-        // const eEt = document.getElementById("endTime").value;
-
+        document.getElementById("showSt").innerText = st;
+        document.getElementById("showEt").innerText = et;
         var update = document.getElementById("update");
 
         // When the user clicks on the button, open the modal
@@ -214,8 +200,6 @@
       }
 
       function updateEvent(eventId) {
-        // document.querySelector(".addContent").style.visibility = 'hidden';
-
         let event = gapi.client.calendar.events.get({"calendarId": 'primary', "eventId": eventId});
         // Example showing a change in the location
         const eventName = document.getElementById('eventName').value;
@@ -224,11 +208,6 @@
         const et = new Date(document.getElementById('endTime').value);
         const endTime = et.toISOString();
 
-        console.log(startTime);
-        console.log(endTime);
-        // event.summary = eventName;
-        // event.start= startTime;
-        // event.end.dateTime = endTime; 
         event = {
           'summary': eventName,
           // 'location': location,
@@ -287,8 +266,6 @@
         }
         // Flatten to string to display
         const output = events.reduce(
-            // (str, event) => `${str}` +"<div style='margin-top: 1%;'> name: " +  `${event.summary}`+ "</div> <div style='border-bottom: 1px solid black;'>start:"+` ${event.start.dateTime || event.start.date}`+  " deadline: " + `${event.end.dateTime || event.end.date} </div>`,
-            // 'task:\n');
             (str, event) => `${str} 
             <div style='margin-top: 1%;' class="task">
               ${event.summary}  
@@ -342,6 +319,7 @@ btn.onclick = function() {
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
+  document.getElementById('eventName').value= '';
   for (let i = 0; i < updateContent.length; i ++) {
     updateContent[i].style.display = 'none';
   }
@@ -355,6 +333,7 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
     modal.style.display = "none";
+    document.getElementById('eventName').value= '';
     for (let i = 0; i < updateContent.length; i ++) {
       updateContent[i].style.display = 'none';
     }

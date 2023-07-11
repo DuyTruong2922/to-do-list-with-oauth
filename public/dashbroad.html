@@ -25,25 +25,19 @@
             <span class="close">&times;</span>
             <form action="" id="add-form">
               <div>
-                <label for="">task muon lam</label>
-                <input type="text" placeholder="ten" id="eventName">
-              </div>
-              <!-- <div>
-                <label for="">mo ta</label>
-                <input type="text" placeholder="mo ta" id="description">
+                <label for="" class="addContent">Thêm task muốn làm</label>
+                <label id="p-startTime" class="updateContent">Sửa task muốn làm</label>
+                <input type="text" placeholder="Nội dung task" id="eventName">
               </div>
               <div>
-                <label for="">dia diem</label>
-                <input type="text" placeholder="dia diem" id="location">
-              </div> -->
-              <div>
-                <label id="p-startTime" class="updateContent"></label>
+                <div class="updateContent">Bắt đầu: <span id="showSt"></span></div>
                 <label for="" class="addContent">Thời gian bắt đầu: </label>
-                <input type="datetime-local" placeholder="thoi gian bat dau" id="startTime">
+                <span class="updateContent">Sửa thành </span><input type="datetime-local" placeholder="thoi gian bat dau" id="startTime">
               </div>
               <div>
+                <label  class="updateContent">Deadline: <span id="showEt"></span></label>
                 <label for="" class="addContent">Thời gian kết thúc</label>
-                <input type="datetime-local" placeholder="thoi gian ket thuc" id="endTime">
+                <span class="updateContent">Sửa thành </span><input type="datetime-local" placeholder="thoi gian ket thuc" id="endTime">
               </div>
               <button onclick="addEvent()" id="addContent" class="addContent" type="button" class="button-80" role="button" 
               style="background: green; color: #fff; margin-top: 1%;" >Thêm mới</button>
